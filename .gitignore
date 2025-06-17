@@ -1,0 +1,20 @@
+# Global
+node_modules/
+.env
+.DS_Store
+*.log
+
+# Laravel (backend)
+backend/vendor/
+backend/storage/
+backend/.env
+
+# Vue.js (frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# Python FastAPI (api)
+api/__pycache__/
+api/.env
+api/.venv/

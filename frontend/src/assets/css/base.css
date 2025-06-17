@@ -1,0 +1,32 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  /* Font */
+  font-family: 'Inter', sans-serif;
+
+  /* Colors */
+  --primary: #5e35b1;
+  --on-primary: #ffffff;
+  --secondary: #d1c4e9;
+  --on-secondary: #311b92;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #6366f1;
+  --neutral-900: #1f2937;
+  --neutral-600: #4b5563;
+  --neutral-300: #d1d5db;
+  --neutral-50: #f9fafb;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
