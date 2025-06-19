@@ -1,5 +1,5 @@
 <template>
-  <div class="pencarian">
+  <div class="bookmark">
     <!-- Navbar Section -->
     <Navbar />
 
@@ -244,6 +244,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.bookmark {
+  min-height: 100vh;
+  background: #f9f9f9;
+  padding-bottom: 2rem;
+}
+
 .container {
   padding: 2rem;
 }
@@ -252,6 +258,17 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.bookmark-info h2 {
+  font-size: 1.75rem;
+  color: var(--on-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.bookmark-info p {
+  color: var(--neutral-600);
+  margin-bottom: 1rem;
 }
 
 .btn-reset {
@@ -278,21 +295,24 @@ onMounted(() => {
 }
 
 .arsip-card {
-  border: 1px solid #eee;
-  border-radius: 8px;
+  background-color: white;
+  border: 1px solid var(--neutral-300);
+  border-radius: 12px;
   padding: 1rem;
   width: 250px;
   text-align: center;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(31, 41, 55, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   position: relative;
 }
 
 .arsip-card:hover {
-  transform: translateY(-4px);
-  background-color: var(--secondary);
-  color: var(--on-secondary);
+  transform: translateY(-6px);
+  /* background-color: var(--secondary);
+  color: var(--on-secondary); */
+  box-shadow: 0 4px 10px rgba(31, 41, 55, 0.1);
 }
 
 .arsip-card img {
@@ -304,9 +324,15 @@ onMounted(() => {
 
 .arsip-card h3 {
   margin-top: 1rem;
+  color: var(--neutral-900);
 }
 
-.bookmark-info {
+.arsip-card p {
+  font-size: 0.9rem;
+  color: var(--neutral-600);
+}
+
+/* .bookmark-info {
   margin-bottom: 2rem;
 }
 
@@ -314,36 +340,37 @@ onMounted(() => {
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
   color: #333333;
-}
+} */
 
 .bookmark-icon {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
   font-size: 1.25rem;
-  color: #ffc107;
+  color: var(--warning);
   cursor: pointer;
   z-index: 2;
+  transition: transform 0.2s;
 }
 
 .bookmark-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .load-more-wrapper {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .btn-load-more {
   padding: 0.75rem 1.5rem;
   background-color: var(--primary);
-  color: white;
+  color: var(--on-primary);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 .btn-load-more:hover {
@@ -357,7 +384,7 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(31, 41, 55, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -367,8 +394,8 @@ onMounted(() => {
 .modal-content {
   background-color: white;
   padding: 2rem;
-  border-radius: 12px;
-  max-width: 600px;
+  border-radius: 16px;
+  max-width: 640px;
   width: 90%;
   position: relative;
   max-height: 90vh;
@@ -410,11 +437,12 @@ onMounted(() => {
   background: none;
   border: none;
   cursor: pointer;
-  color: #888;
+  color: var(--neutral-600);
+  transition: color 0.2s;
 }
 
 .close-btn:hover {
-  color: #000;
+  color: var(--neutral-900);
 }
 
 .arsip-actions {
@@ -439,19 +467,19 @@ onMounted(() => {
 }
 
 .btn-view {
-  background-color: #007bff;
+  background-color: var(--info);
 }
 
 .btn-view:hover {
-  background-color: #0069d9;
+  background-color: #4f46e5;
 }
 
 .btn-download {
-  background-color: #28a745;
+  background-color: var(--success);
 }
 
 .btn-download:hover {
-  background-color: #218838;
+  background-color: #059669;
 }
 
 .arsip-section {
@@ -461,7 +489,7 @@ onMounted(() => {
 .arsip-section h3 {
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
-  color: #222;
+  color: var(--neutral-900);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -470,7 +498,7 @@ onMounted(() => {
 .arsip-section p,
 .arsip-section ul {
   font-size: 0.95rem;
-  color: #444;
+  color: var(--neutral-600);
   margin-left: 1.2rem;
 }
 
