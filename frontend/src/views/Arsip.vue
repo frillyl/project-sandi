@@ -404,10 +404,12 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: var(--on-secondary);
 }
 
 .title h2 {
   margin: 0;
+  color: var(--on-secondary);
 }
 
 .actions {
@@ -473,15 +475,15 @@ onMounted(() => {
 }
 
 .btn.edit {
-  background-color: #f0ad4e;
+  background-color: var(--warning);
 }
 
 .btn.edit:hover {
-  background-color: #e09b3d;
+  background-color: #db9737;
 }
 
 .btn.hapus {
-  background-color: #d9534f;
+  background-color: var(--error);
 }
 
 .btn.hapus:hover {
@@ -489,7 +491,7 @@ onMounted(() => {
 }
 
 .btn.preview {
-  background-color: #17a2b8;
+  background-color: var(--info);
   text-decoration: none;
 }
 
@@ -498,16 +500,16 @@ onMounted(() => {
 }
 
 .btn.preview:hover {
-  background-color: #138496;
+  background-color: #4f46e5;
 }
 
 .btn.download {
-  background-color: #28a745;
+  background-color: var(--success);
   text-decoration: none;
 }
 
 .btn.download:hover {
-  background-color: #218838;
+  background-color: #059669;
 }
 
 .modal {
@@ -534,11 +536,12 @@ onMounted(() => {
 
 .modal-content h3 {
   margin-bottom: 1.5rem;
+  color: var(--on-secondary);
 }
 
 .modal-content hr {
   border: none;
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid var(--on-secondary);
   margin-bottom: 1.5rem;
 }
 
@@ -552,7 +555,7 @@ onMounted(() => {
 
 .modal-header i {
   font-size: 20px;
-  color: #4a4a4a;
+  color: var(--on-secondary);
 }
 
 .modal-header h3 {
@@ -570,7 +573,7 @@ onMounted(() => {
   margin-bottom: 5px;
   font-weight: 600;
   font-size: 14px;
-  color: #333;
+  color: var(--on-secondary);
 }
 
 .form-group input {
@@ -588,13 +591,18 @@ onMounted(() => {
 }
 
 .input-error {
-  border: 1px solid red !important;
+  border: 1px solid var(--error) !important;
   background-color: #ffe6e6;
 }
 
+.error-msg {
+  font-size: 12px;
+}
+
 .error-msg i {
-  margin-right: 6px;
-  color: red;
+  margin-right: 2px;
+  font-size: 12px;
+  color: var(--error);
 }
 
 .modal-actions {
@@ -605,17 +613,27 @@ onMounted(() => {
 }
 
 .btn-submit {
-  background: #0d9816;
+  background: var(--success);
   color: white;
   font-size: 14px;
   border-radius: 4px;
 }
 
+.btn-submit:hover {
+  background: #059669;
+  color: white;
+}
+
 .btn-cancel {
-  background: #6c757d;
+  background: var(--neutral-600);
   color: white;
   font-size: 14px;
   border-radius: 4px;
+}
+
+.btn-cancel:hover {
+  background: #757575;
+  color: white;
 }
 
 .fade-enter-active,
@@ -655,7 +673,54 @@ button {
   cursor: pointer;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .btn.tambah {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .table-container table {
+    font-size: 14px;
+    word-break: break-word;
+  }
+
+  .modal-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
   .table-container table,
   .table-container thead,
   .table-container tbody,
