@@ -354,6 +354,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.pencarian {
+  min-height: 100vh;
+  background: #f9f9f9;
+  padding-bottom: 2rem;
+}
+
 .container {
   padding: 2rem;
 }
@@ -361,7 +367,7 @@ onMounted(() => {
 .content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .controls {
@@ -369,14 +375,24 @@ onMounted(() => {
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
 }
 
 .controls input,
 .controls select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: 6px;
+  background-color: white;
+  color: var(--neutral-900);
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.controls input:focus,
+.controls select:focus {
+  border-color: var(--primary);
+  outline: none;
 }
 
 .controls select {
@@ -384,10 +400,11 @@ onMounted(() => {
 }
 
 .btn-reset {
-  background-color: white;
+  background-color: var(--error);
+  color: white;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  border-radius: 6px;
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -396,7 +413,7 @@ onMounted(() => {
 }
 
 .btn-reset:hover {
-  background-color: #c82333;
+  background-color: #c9302c;
   color: white;
 }
 
@@ -407,42 +424,55 @@ onMounted(() => {
 }
 
 .arsip-card {
-  border: 1px solid #eee;
-  border-radius: 8px;
+  background-color: white;
+  border: 1px solid var(--neutral-300);
+  border-radius: 12px;
   padding: 1rem;
-  width: 250px;
+  /* width: 250px; */
   text-align: center;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   position: relative;
 }
 
 .arsip-card:hover {
-  transform: translateY(-4px);
-  background-color: var(--secondary);
-  color: var(--on-secondary);
+  transform: translateY(-6px);
+  /* background-color: var(--secondary);
+  color: var(--on-secondary); */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .arsip-card img {
   width: 100%;
   height: 160px;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 8px;
+  background-color: var(--neutral-50);
 }
 
 .arsip-card h3 {
   margin-top: 1rem;
+  color: var(--neutral-900);
+  font-size: 1.1rem;
+}
+
+.arsip-card p {
+  margin: 0.25rem 0;
+  color: var(--neutral-600);
+  font-size: 0.9rem;
 }
 
 .bookmark-icon {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  font-size: 1.25rem;
-  color: #ffc107;
+  font-size: 1.3rem;
+  color: var(--warning);
   cursor: pointer;
   z-index: 2;
+  transition: transform 0.2s ease;
 }
 
 .bookmark-icon:hover {
@@ -451,18 +481,18 @@ onMounted(() => {
 
 .load-more-wrapper {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .btn-load-more {
   padding: 0.75rem 1.5rem;
   background-color: var(--primary);
-  color: white;
+  color: var(--on-primary);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 .btn-load-more:hover {
@@ -476,7 +506,7 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(31, 41, 55, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -492,33 +522,34 @@ onMounted(() => {
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   animation: fadeIn 0.3s ease-in-out;
 }
 
-.modal-header {
+/* .modal-header {
   margin-bottom: 1.5rem;
-}
+} */
 
 .arsip-title {
-  margin-bottom: 0.25rem;
+  margin-bottom: 1.5rem;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--primary);
 }
 
 .arsip-meta {
   font-size: 0.9rem;
-  color: #555;
+  color: var(--neutral-600);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .arsip-actions {
   display: flex;
   gap: 1rem;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .close-btn {
@@ -529,11 +560,11 @@ onMounted(() => {
   background: none;
   border: none;
   cursor: pointer;
-  color: #888;
+  color: var(--neutral-600);
 }
 
 .close-btn:hover {
-  color: #000;
+  color: var(--neutral-900);
 }
 
 .arsip-actions {
@@ -558,19 +589,19 @@ onMounted(() => {
 }
 
 .btn-view {
-  background-color: #007bff;
+  background-color: var(--info);
 }
 
 .btn-view:hover {
-  background-color: #0069d9;
+  background-color: #4f46e5;
 }
 
 .btn-download {
-  background-color: #28a745;
+  background-color: var(--success);
 }
 
 .btn-download:hover {
-  background-color: #218838;
+  background-color: #059669;
 }
 
 .arsip-section {
@@ -580,7 +611,7 @@ onMounted(() => {
 .arsip-section h3 {
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
-  color: #222;
+  color: var(--neutral-900);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -589,7 +620,7 @@ onMounted(() => {
 .arsip-section p,
 .arsip-section ul {
   font-size: 0.95rem;
-  color: #444;
+  color: var(--neutral-600);
   margin-left: 1.2rem;
 }
 
@@ -601,6 +632,73 @@ onMounted(() => {
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls input,
+  .controls select,
+  .btn-reset {
+    width: 100%;
+  }
+
+  .arsip-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .arsip-card h3 {
+    font-size: 1rem;
+  }
+
+  .arsip-card p {
+    font-size: 0.8rem;
+  }
+
+  .modal-content {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .arsip-title {
+    font-size: 1.2rem;
+  }
+
+  .arsip-meta {
+    font-size: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .arsip-section h3 {
+    font-size: 1rem;
+  }
+
+  .arsip-section p,
+  .arsip-section ul {
+    font-size: 0.85rem;
+  }
+
+  .close-btn {
+    top: 0.5rem;
+    right: 0.5rem;
   }
 }
 </style>
