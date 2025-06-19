@@ -5,7 +5,10 @@
         <div class="navbar-logo">
           <h1>SANDI</h1>
         </div>
-        <ul class="navbar-menu">
+        <button class="hamburger" @click="toggleMobileMenu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="navbar-menu" :class="{ show: isMobileMenuOpen }">
           <li class="navbar-item">
             <router-link
               to="/demo/dashboard"
@@ -116,6 +119,12 @@ const isUserLoaded = ref(false)
 const profileRef = ref(null)
 const userName = ref('')
 const userRole = ref('')
+const isMobileMenuOpen = ref(false)
+
+function toggleMobileMenu() {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
 const fetchUserData = async () => {
   const token = localStorage.getItem('auth_token')
   if (token) {
@@ -216,6 +225,15 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 2rem;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .navbar-menu {
@@ -355,5 +373,56 @@ onUnmounted(() => {
 .dropdown-link.active {
   background: var(--secondary);
   color: var(--on-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .navbar-left {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .navbar-menu.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-profile {
+    margin-left: 0;
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .profile-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown-menu,
+  .profile-dropdown {
+    position: static;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
 }
 </style>
