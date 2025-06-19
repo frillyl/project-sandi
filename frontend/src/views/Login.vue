@@ -258,17 +258,59 @@ button:disabled {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
   .left-section {
     display: none;
   }
 
   .right-section {
     flex: 1;
-    padding: 1.5rem;
+    width: 100%;
+    padding: 2rem 1.5rem;
   }
 
   .login-card {
+    max-width: 100%;
     padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  .login-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .input-group input {
+    font-size: 0.95rem;
+    padding: 0.65rem 2.5rem 0.65rem 0.9rem;
+  }
+
+  .forgot-link {
+    font-size: 0.8rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.2rem;
+  }
+
+  .login-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .input-group input {
+    font-size: 0.85rem;
+  }
+
+  button {
+    font-size: 0.9rem;
   }
 }
 
