@@ -7,5 +7,6 @@ class HasilOCR(Base):
     id = Column(Integer, primary_key=True, index=True)
     judul = Column(Text)
     hasil_ocr = Column(Text)
+    file_path = Column(Text)
     summary = Column(Text, nullable=True)
     summary_abstractive = Column(Text, nullable=True)

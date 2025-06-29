@@ -52,6 +52,7 @@ def get_recommendations(db: Session, doc_id: int, top_n: int = 5, min_score: flo
         {
             "id": ids[i],
             "judul": documents[i].judul,
+            "file_path": documents[i].file_path,
             "similarity": float(score),
             "preview": processed_docs[i][:200]
         }
