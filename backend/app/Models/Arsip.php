@@ -9,7 +9,7 @@ class Arsip extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['judul', 'kategori', 'klasifikasi', 'file_path', 'hasil_ocr'];
+    protected $fillable = ['judul', 'kategori', 'klasifikasi', 'file_path', 'hasil_ocr', 'summary', 'summary_abstractive'];
 
     public function bookmarkedBy(){
         return $this->hasMany(Bookmark::class);

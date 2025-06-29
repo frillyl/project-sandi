@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Arsip;
+use App\Jobs\ProcessOCR;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -34,26 +35,27 @@ class ArsipController extends Controller
         $file = $request->file('file');
         $path = $file->storeAs('arsip', time().'_'.$file->getClientOriginalName());
 
-        $response = Http::attach(
-            'file', file_get_contents($file), $file->getClientOriginalName()
-        )->post('http://localhost:5000/ocr'); // URL FastAPI
+        // $response = Http::attach(
+        //     'file', file_get_contents($file), $file->getClientOriginalName()
+        // )->post('http://localhost:5000/ocr'); // URL FastAPI
 
-        if ($response->failed()) {
-            return response()->json(['error' => 'OCR processing failed', 'details' => $response->body()], 500);
-        }
+        // if ($response->failed()) {
+        //     return response()->json(['error' => 'OCR processing failed', 'details' => $response->body()], 500);
+        // }
 
-        $hasil_ocr = $response->successful() && $response->json('hasil_ocr')
-                ? $response->json('hasil_ocr')
-                : 'Tidak ada teks OCR yang ditemukan.';
+        // $hasil_ocr = $response->successful() && $response->json('hasil_ocr')
+        //         ? $response->json('hasil_ocr')
+        //         : 'Tidak ada teks OCR yang ditemukan.';
 
         $arsip = Arsip::create([
             'judul' => $request->judul,
             'kategori' => $request->kategori,
             'klasifikasi' => $request->klasifikasi,
             'file_path' => $path,
-            'hasil_ocr' => $hasil_ocr,
+            'hasil_ocr' => null,
         ]);
 
+        ProcessOCR::dispatch($arsip->id);
         return response()->json($arsip, 201);
     }
 
@@ -90,7 +92,7 @@ class ArsipController extends Controller
         // Lakukan OCR pada file baru
         $response = Http::attach(
             'file', file_get_contents($file), $file->getClientOriginalName()
-        )->post('http://localhost:5000/ocr'); // URL FastAPI
+        )->post('https://eat-ask-yet-berlin.trycloudflare.com/ocr'); // URL FastAPI
 
         if ($response->failed()) {
             return response()->json(['error' => 'OCR processing failed', 'details' => $response->body()], 500);
@@ -105,6 +107,7 @@ class ArsipController extends Controller
             'file_path' => $path,
             'hasil_ocr' => $hasil_ocr,
         ]);
+        ProcessOCR::dispatch($arsip->id);
     }
 
         return response()->json($arsip);
