@@ -1,43 +1,35 @@
-# 📦 Project SANDI - Solusi Cerdas Untuk Arsip Digital
+# frontend
 
-**Project SANDI** adalah aplikasi arsip digital berbasis web yang dikembangkan sebagai bagian dari proyek skripsi. Sistem ini membantu pengguna dalam mengelola dokumen secara efisien dengan fitur-fitur cerdas seperti pencarian, ringkasan otomatis, dan rekomendasi arsip menggunakan teknologi AI.
+This template should help get you started developing with Vue 3 in Vite.
 
----
+## Recommended IDE Setup
 
-## ✨ Fitur Utama
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-- 📁 Manajemen Arsip Digital
-- 🔍 Pencarian Arsip berdasarkan judul & isi dokumen
-- 🧠 OCR (Optical Character Recognition) untuk ekstraksi teks dari dokumen
-- 📝 Ringkasan Dokumen Otomatis
-- 📚 Rekomendasi Dokumen Berdasarkan Kemiripan Isi Dokumen
-- ⭐ Bookmark Arsip Favorit
-- 🔐 Autentikasi & Manajemen Role Pengguna
+## Customize configuration
 
----
+See [Vite Configuration Reference](https://vite.dev/config/).
 
-## 🛠 Teknologi
+## Project Setup
 
-- **Laravel** – Backend utama (REST API, otentikasi, manajemen data)
-- **Vue.js** – Frontend SPA (Single Page Application)
-- **FastAPI (Python)** – Microservice AI untuk OCR, Summarization, dan Recommendation
-- **MySQL** – Basis data relasional
-- **SweetAlert2** – Notifikasi interaktif
-- **Google Cloud Platform** *(opsional)* – Rencana deployment cloud
+```sh
+npm install
+```
 
----
+### Compile and Hot-Reload for Development
 
-## 📄 Lisensi
+```sh
+npm run dev
+```
 
-Proyek ini dikembangkan sebagai bagian dari tugas akhir/skripsi dan tidak bersifat open-source. Penggunaan, distribusi, atau modifikasi harus mendapatkan izin dari pengembang.
+### Compile and Minify for Production
 
----
+```sh
+npm run build
+```
 
-## 👨‍💻 Pengembang
+### Lint with [ESLint](https://eslint.org/)
 
-> **Nama**: Frilly Lakumani  
-> **NIM**: 10121495
-> **Program Studi**: Sistem Informasi  
-> **Kampus**: Universitas Gunadarma
-
----
+```sh
+npm run lint
+```
