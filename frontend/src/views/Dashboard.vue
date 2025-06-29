@@ -116,7 +116,7 @@ const fetchUserData = async () => {
   if (token) {
     try {
       const response = await axios.get(
-        'https://joint-hanging-algorithm-verde.trycloudflare.com/api/user',
+        'https://wichita-surveillance-stuff-instrumental.trycloudflare.com/api/user',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -148,7 +148,7 @@ const fetchBookmarks = async () => {
   const token = localStorage.getItem('auth_token')
   try {
     const response = await axios.get(
-      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks',
+      'https://wichita-surveillance-stuff-instrumental.trycloudflare.com/api/bookmarks',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -208,13 +208,13 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `https://joint-hanging-algorithm-verde.trycloudflare.com/storage/${arsip.arsip.file_path}`
+  return `https://wichita-surveillance-stuff-instrumental.trycloudflare.com/storage/${arsip.arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://joint-hanging-algorithm-verde.trycloudflare.com/api/arsip/download/${arsip.arsip.id}`,
+      `https://wichita-surveillance-stuff-instrumental.trycloudflare.com/api/arsip/download/${arsip.arsip.id}`,
       {
         responseType: 'blob',
       },

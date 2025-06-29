@@ -50,7 +50,7 @@ const login = async () => {
   isLoading.value = true
   try {
     const response = await axios.post(
-      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/login',
+      'https://wichita-surveillance-stuff-instrumental.trycloudflare.com/api/login',
       {
         email: email.value,
         password: password.value,

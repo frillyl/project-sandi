@@ -47,7 +47,7 @@ const router = useRouter()
 const submitEmail = async () => {
   try {
     await axios.post(
-      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/forgot-password',
+      'https://wichita-surveillance-stuff-instrumental.trycloudflare.com/api/forgot-password',
       {
         email: email.value,
       },
