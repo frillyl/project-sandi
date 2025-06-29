@@ -59,7 +59,7 @@ const submit = async () => {
   }
 
   try {
-    await axios.post('http://localhost:8000/api/reset-password', {
+    await axios.post('https://joint-hanging-algorithm-verde.trycloudflare.com/api/reset-password', {
       token: token.value,
       email: email.value,
       password: password.value,

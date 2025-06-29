@@ -46,9 +46,12 @@ const router = useRouter()
 
 const submitEmail = async () => {
   try {
-    await axios.post('http://localhost:8000/api/forgot-password', {
-      email: email.value,
-    })
+    await axios.post(
+      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/forgot-password',
+      {
+        email: email.value,
+      },
+    )
     Swal.fire({
       icon: 'success',
       title: 'Email Terkirim',

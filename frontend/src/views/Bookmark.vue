@@ -96,7 +96,9 @@ const bookmarks = ref([])
 
 const fetchArsip = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/api/arsip')
+    const response = await axios.get(
+      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/arsip',
+    )
     arsipList.value = response.data
   } catch (error) {
     console.error('Gagal Mengambil Data Arsip: ', error)
@@ -114,11 +116,14 @@ const filteredTotal = computed(() => {
 const fetchBookmarks = async () => {
   try {
     const token = localStorage.getItem('auth_token')
-    const response = await axios.get('http://localhost:8000/api/bookmarks', {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.get(
+      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
     bookmarks.value = response.data.map((bookmark) => bookmark.arsip_id)
   } catch (error) {
     console.error('Gagal mengambil data bookmark: ', error)
@@ -138,11 +143,14 @@ const toggleBookmark = async (arsip) => {
 
   if (isBookmarked(arsip.id)) {
     try {
-      await axios.delete(`http://localhost:8000/api/bookmarks/${arsip.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      await axios.delete(
+        `https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks/${arsip.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      })
+      )
       bookmarks.value = bookmarks.value.filter((id) => id !== arsip.id)
       Swal.fire('Dihapus', 'Arsip dihapus dari bookmark.', 'success')
     } catch (error) {
@@ -152,7 +160,7 @@ const toggleBookmark = async (arsip) => {
   } else {
     try {
       await axios.post(
-        'http://localhost:8000/api/bookmarks',
+        'https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks',
         { arsip_id: arsip.id },
         {
           headers: {
@@ -183,14 +191,17 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `http://localhost:8000/storage/${arsip.file_path}`
+  return `https://joint-hanging-algorithm-verde.trycloudflare.com/storage/${arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
-    const response = await axios.get(`http://localhost:8000/api/arsip/download/${arsip.id}`, {
-      responseType: 'blob',
-    })
+    const response = await axios.get(
+      `https://joint-hanging-algorithm-verde.trycloudflare.com/api/arsip/download/${arsip.id}`,
+      {
+        responseType: 'blob',
+      },
+    )
     const blob = new Blob([response.data], { type: 'application/pdf' })
     const url = window.URL.createObjectURL(blob)
     const link = document.createElement('a')
@@ -502,6 +513,94 @@ onMounted(() => {
   margin-left: 1.2rem;
 }
 
+/* Responsive */
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .arsip-card {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .arsip-card {
+    padding: 0.75rem;
+  }
+
+  .arsip-card img {
+    height: 140px;
+  }
+
+  .bookmark-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .bookmark-info p {
+    font-size: 0.95rem;
+  }
+
+  .arsip-card h3 {
+    font-size: 1rem;
+  }
+
+  .arsip-card p {
+    font-size: 0.85rem;
+  }
+
+  .btn-load-more {
+    width: 100%;
+  }
+
+  .arsip-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .arsip-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modal-content {
+    padding: 1rem;
+    max-width: 95%;
+  }
+
+  .arsip-section p,
+  .arsip-section ul {
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .close-btn {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}
+
+/* Animations */
 @keyframes fadeIn {
   from {
     transform: scale(0.95);

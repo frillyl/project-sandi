@@ -81,11 +81,11 @@
         </div>
         <transition name="slide-fade">
           <ul v-if="isProfileDropdownOpen" class="profile-dropdown">
-            <li>
+            <!-- <li>
               <router-link to="/demo/profile" class="dropdown-link"
                 ><i class="fa-solid fa-user-gear menu-icon"></i> Profile Saya</router-link
               >
-            </li>
+            </li> -->
             <li>
               <router-link to="/demo/bookmark" class="dropdown-link"
                 ><i class="fa-solid fa-bookmark menu-icon"></i> Bookmark</router-link

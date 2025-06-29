@@ -45,6 +45,9 @@
             <p>{{ arsip.kategori }}</p>
             <p>{{ arsip.klasifikasi }}</p>
             <p>{{ formatTanggal(arsip.created_at) }}</p>
+            <p v-if="!arsip.hasil_ocr || !arsip.summary_abstractive" class="status-processing">
+              <i class="fa-solid fa-spinner fa-spin"></i> Sedang Diproses...
+            </p>
           </div>
         </div>
 
@@ -52,6 +55,10 @@
           <button @click="loadMore" class="btn-load-more">Muat Lebih Banyak</button>
         </div>
       </div>
+
+      <p v-if="loadingArsip" class="loading-arsip">
+        <i class="fa-solid fa-spinner fa-spin"></i> Memuat ulang data arsip...
+      </p>
 
       <!-- Modal Detail -->
       <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
@@ -78,8 +85,7 @@
 
           <div class="arsip-section">
             <h3><i class="fa-solid fa-align-left"></i> Ringkasan Arsip</h3>
-            <p v-if="loadingDetail">Memuat ringkasan...</p>
-            <p v-else>{{ ringkasan }}</p>
+            <p>{{ selectedArsip.summary_abstractive }}</p>
           </div>
 
           <div class="arsip-section">
@@ -89,7 +95,16 @@
             </ul>
             <ul v-else>
               <li v-if="rekomendasi.length === 0">Tidak ada rekomendasi.</li>
-              <li v-for="item in rekomendasi" :key="item.id">{{ item.judul }}</li>
+              <li v-for="item in rekomendasi" :key="item.id" class="rekomendasi-item">
+                <a
+                  v-if="item.file_path"
+                  :href="getFileUrl(item)"
+                  target="_blank"
+                  rel="noopener"
+                  class="rekomendasi-link"
+                  ><i class="fa-solid fa-file-pdf"></i> {{ item.judul }}</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -106,6 +121,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const arsipList = ref([])
+const loadingArsip = ref(false)
 const searchQuery = ref('')
 const selectedCategory = ref('')
 const selectedKlasifikasi = ref('')
@@ -119,14 +135,45 @@ const visibleCount = ref(8)
 const loadStep = 8
 const bookmarks = ref([])
 
+let refreshInterval = null
+const adaArsipDiproses = computed(() => {
+  return arsipList.value.some(
+    (arsip) =>
+      !arsip.hasil_ocr ||
+      arsip.hasil_ocr.trim() === '' ||
+      !arsip.summary_abstractive ||
+      arsip.summary_abstractive.trim() === '',
+  )
+})
+
 const fetchArsip = async () => {
+  loadingArsip.value = true
   try {
-    const response = await axios.get('http://localhost:8000/api/arsip')
+    const response = await axios.get(
+      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/arsip',
+    )
     arsipList.value = response.data
+
+    if (!adaArsipDiproses.value && refreshInterval) {
+      clearInterval(refreshInterval)
+      refreshInterval = null
+    }
   } catch (error) {
     console.error('Gagal Mengambil Data Arsip: ', error)
+  } finally {
+    loadingArsip.value = false
   }
 }
+
+watch(arsipList, () => {
+  if (adaArsipDiproses.value && !refreshInterval) {
+    refreshInterval = setInterval(() => {
+      if (adaArsipDiproses.value && !showModal.value) {
+        fetchArsip
+      }
+    }, 20000)
+  }
+})
 
 const kategoriUnik = computed(() => {
   return [
@@ -212,11 +259,14 @@ const filteredTotal = computed(() => {
 const fetchBookmarks = async () => {
   try {
     const token = localStorage.getItem('auth_token')
-    const response = await axios.get('http://localhost:8000/api/bookmarks', {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.get(
+      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
     bookmarks.value = response.data.map((bookmark) => bookmark.arsip_id)
   } catch (error) {
     console.error('Gagal mengambil data bookmark: ', error)
@@ -236,11 +286,14 @@ const toggleBookmark = async (arsip) => {
 
   if (isBookmarked(arsip.id)) {
     try {
-      await axios.delete(`http://localhost:8000/api/bookmarks/${arsip.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      await axios.delete(
+        `https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks/${arsip.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      })
+      )
       bookmarks.value = bookmarks.value.filter((id) => id !== arsip.id)
       Swal.fire('Dihapus', 'Arsip dihapus dari bookmark.', 'success')
     } catch (error) {
@@ -250,7 +303,7 @@ const toggleBookmark = async (arsip) => {
   } else {
     try {
       await axios.post(
-        'http://localhost:8000/api/bookmarks',
+        'https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks',
         { arsip_id: arsip.id },
         {
           headers: {
@@ -281,14 +334,17 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `http://localhost:8000/storage/${arsip.file_path}`
+  return `https://joint-hanging-algorithm-verde.trycloudflare.com/storage/${arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
-    const response = await axios.get(`http://localhost:8000/api/arsip/download/${arsip.id}`, {
-      responseType: 'blob',
-    })
+    const response = await axios.get(
+      `https://joint-hanging-algorithm-verde.trycloudflare.com/api/arsip/download/${arsip.id}`,
+      {
+        responseType: 'blob',
+      },
+    )
     const blob = new Blob([response.data], { type: 'application/pdf' })
     const url = window.URL.createObjectURL(blob)
     const link = document.createElement('a')
@@ -303,6 +359,14 @@ const downloadFile = async (arsip) => {
 }
 
 const openModal = async (arsip) => {
+  if (!arsip.hasil_ocr || !arsip.summary_abstractive) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Sedang Diproses',
+      text: 'Arsip ini masih dalam proses OCR dan Peringkasan. Silahkan tunggu beberapa saat lagi.',
+    })
+    return
+  }
   selectedArsip.value = arsip
   showModal.value = true
   ringkasan.value = ''
@@ -310,8 +374,10 @@ const openModal = async (arsip) => {
   loadingDetail.value = true
 
   try {
-    const resSummary = await axios.get(`http://localhost:5000/summarize/${arsip.id}`)
-    ringkasan.value = resSummary.data.summary
+    const resSummary = await axios.get(
+      `https://eat-ask-yet-berlin.trycloudflare.com/summarize_abstractive/${arsip.id}`,
+    )
+    ringkasan.value = resSummary.data.summary_abstractive
   } catch (error) {
     console.error('Gagal memuat ringkasan:', error)
     ringkasan.value = '[Gagal memuat ringkasan]'
@@ -320,7 +386,9 @@ const openModal = async (arsip) => {
   }
 
   try {
-    const resRekomendasi = await axios.get(`http://localhost:5000/recommendation/${arsip.id}`)
+    const resRekomendasi = await axios.get(
+      `https://eat-ask-yet-berlin.trycloudflare.com/recommendation/${arsip.id}`,
+    )
     rekomendasi.value = resRekomendasi.data.recommendations
   } catch (error) {
     console.error('Gagal memuat rekomendasi:', error)
@@ -350,6 +418,12 @@ watch([searchQuery, selectedCategory, selectedKlasifikasi, sortBy], () => {
 onMounted(() => {
   fetchArsip()
   fetchBookmarks()
+
+  refreshInterval = setInterval(() => {
+    if (adaArsipDiproses.value && !showModal.value) {
+      fetchArsip()
+    }
+  }, 20000)
 })
 </script>
 
@@ -464,6 +538,13 @@ onMounted(() => {
   font-size: 0.9rem;
 }
 
+.status-processing {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--warning);
+  font-style: italic;
+}
+
 .bookmark-icon {
   position: absolute;
   top: 0.75rem;
@@ -498,6 +579,16 @@ onMounted(() => {
 .btn-load-more:hover {
   background-color: var(--secondary);
   color: var(--on-secondary);
+}
+
+.loading-arsip {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--neutral-600);
+  margin-bottom: 1rem;
+  display: flex;
+  text-align: center;
+  gap: 0.5rem;
 }
 
 .modal-overlay {
@@ -622,6 +713,26 @@ onMounted(() => {
   font-size: 0.95rem;
   color: var(--neutral-600);
   margin-left: 1.2rem;
+}
+
+.rekomendasi-item {
+  margin: 0.5rem 0;
+  list-style: none;
+}
+
+.rekomendasi-link {
+  color: var(--info);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.rekomendasi-link:hover {
+  color: #4338ca;
+  text-decoration: underline;
 }
 
 @keyframes fadeIn {

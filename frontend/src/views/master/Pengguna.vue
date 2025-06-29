@@ -123,7 +123,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import Navbar from '@/components/Navbar.vue'
 
-const API_URL = 'http://localhost:8000/api/users'
+const API_URL = 'https://joint-hanging-algorithm-verde.trycloudflare.com/api/users'
 const users = ref([])
 const showModal = ref(false)
 const search = ref('')
@@ -242,7 +242,9 @@ const confirmDelete = (id) => {
 
 const resetPassword = async (userId) => {
   try {
-    await axios.post(`http://localhost:8000/api/users/${userId}/reset-password`)
+    await axios.post(
+      `https://joint-hanging-algorithm-verde.trycloudflare.com/api/users/${userId}/reset-password`,
+    )
     Swal.fire({
       icon: 'success',
       title: 'Berhasil',

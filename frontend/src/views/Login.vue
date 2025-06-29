@@ -49,10 +49,13 @@ const isLoading = ref(false)
 const login = async () => {
   isLoading.value = true
   try {
-    const response = await axios.post('http://localhost:8000/api/login', {
-      email: email.value,
-      password: password.value,
-    })
+    const response = await axios.post(
+      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/login',
+      {
+        email: email.value,
+        password: password.value,
+      },
+    )
 
     const user = response.data.user
 

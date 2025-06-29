@@ -41,7 +41,10 @@
           </div>
 
           <div class="bookmark-list">
-            <div class="bookmark-item" v-for="arsip in bookmarks" :key="arsip.arsip.id">
+            <div v-if="bookmarks.length === 0" class="bookmark-empty">
+              Anda belum memiliki bookmark.
+            </div>
+            <div v-else class="bookmark-item" v-for="arsip in bookmarks" :key="arsip.arsip.id">
               <h4 @click="openModal(arsip)" class="clickable">{{ arsip.arsip.judul }}</h4>
               <p class="tanggal">{{ new Date(arsip.arsip.created_at).toLocaleDateString() }}</p>
             </div>
@@ -112,11 +115,14 @@ const fetchUserData = async () => {
   const token = localStorage.getItem('auth_token')
   if (token) {
     try {
-      const response = await axios.get('http://localhost:8000/api/user', {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.get(
+        'https://joint-hanging-algorithm-verde.trycloudflare.com/api/user',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      })
+      )
       userName.value = response.data.name
     } catch (error) {
       console.error('Gagal mengambil data pengguna', error)
@@ -141,11 +147,14 @@ const bookmarks = ref([])
 const fetchBookmarks = async () => {
   const token = localStorage.getItem('auth_token')
   try {
-    const response = await axios.get('http://localhost:8000/api/bookmarks', {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.get(
+      'https://joint-hanging-algorithm-verde.trycloudflare.com/api/bookmarks',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
     bookmarks.value = response.data.slice(0, 3)
   } catch (error) {
     console.error('Gagal mengambil data bookmark: ', error)
@@ -199,14 +208,17 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `http://localhost:8000/storage/${arsip.arsip.file_path}`
+  return `https://joint-hanging-algorithm-verde.trycloudflare.com/storage/${arsip.arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
-    const response = await axios.get(`http://localhost:8000/api/arsip/download/${arsip.arsip.id}`, {
-      responseType: 'blob',
-    })
+    const response = await axios.get(
+      `https://joint-hanging-algorithm-verde.trycloudflare.com/api/arsip/download/${arsip.arsip.id}`,
+      {
+        responseType: 'blob',
+      },
+    )
     const blob = new Blob([response.data], { type: 'application/pdf' })
     const url = window.URL.createObjectURL(blob)
     const link = document.createElement('a')
@@ -350,6 +362,13 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+
+.bookmark-empty {
+  padding: 1rem;
+  color: var(--neutral-600);
+  font-style: italic;
+  text-align: center;
 }
 
 .bookmark-item {
