@@ -116,7 +116,7 @@ const fetchUserData = async () => {
   if (token) {
     try {
       const response = await axios.get(
-        'https://feeds-different-buried-safely.trycloudflare.com/api/user',
+        'https://avi-initiative-basics-xml.trycloudflare.com/api/user',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -148,7 +148,7 @@ const fetchBookmarks = async () => {
   const token = localStorage.getItem('auth_token')
   try {
     const response = await axios.get(
-      'https://feeds-different-buried-safely.trycloudflare.com/api/bookmarks',
+      'https://avi-initiative-basics-xml.trycloudflare.com/api/bookmarks',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -208,13 +208,13 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `https://feeds-different-buried-safely.trycloudflare.com/storage/${arsip.arsip.file_path}`
+  return `https://avi-initiative-basics-xml.trycloudflare.com/storage/${arsip.arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://feeds-different-buried-safely.trycloudflare.com/api/arsip/download/${arsip.arsip.id}`,
+      `https://avi-initiative-basics-xml.trycloudflare.com/api/arsip/download/${arsip.arsip.id}`,
       {
         responseType: 'blob',
       },

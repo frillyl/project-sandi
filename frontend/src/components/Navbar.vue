@@ -129,7 +129,7 @@ const fetchUserData = async () => {
   const token = localStorage.getItem('auth_token')
   if (token) {
     try {
-      const response = await axios.get('https://feeds-different-buried-safely.trycloudflare.com/api/user', {
+      const response = await axios.get('https://avi-initiative-basics-xml.trycloudflare.com/api/user', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

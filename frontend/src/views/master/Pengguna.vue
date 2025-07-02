@@ -123,7 +123,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import Navbar from '@/components/Navbar.vue'
 
-const API_URL = 'https://feeds-different-buried-safely.trycloudflare.com/api/users'
+const API_URL = 'https://avi-initiative-basics-xml.trycloudflare.com/api/users'
 const users = ref([])
 const showModal = ref(false)
 const search = ref('')
@@ -243,7 +243,7 @@ const confirmDelete = (id) => {
 const resetPassword = async (userId) => {
   try {
     await axios.post(
-      `https://feeds-different-buried-safely.trycloudflare.com/api/users/${userId}/reset-password`,
+      `https://avi-initiative-basics-xml.trycloudflare.com/api/users/${userId}/reset-password`,
     )
     Swal.fire({
       icon: 'success',

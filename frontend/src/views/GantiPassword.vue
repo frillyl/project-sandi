@@ -55,7 +55,7 @@ const changePassword = async () => {
   try {
     const token = localStorage.getItem('auth_token')
     await axios.post(
-      'https://feeds-different-buried-safely.trycloudflare.com/api/change-password',
+      'https://avi-initiative-basics-xml.trycloudflare.com/api/change-password',
       {
         password: password.value,
         password_confirmation: confirmPassword.value,
