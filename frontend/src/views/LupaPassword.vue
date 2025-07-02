@@ -47,7 +47,7 @@ const router = useRouter()
 const submitEmail = async () => {
   try {
     await axios.post(
-      'https://incomplete-fan-renewal-impossible.trycloudflare.com/api/forgot-password',
+      'https://feeds-different-buried-safely.trycloudflare.com/api/forgot-password',
       {
         email: email.value,
       },

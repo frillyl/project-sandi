@@ -50,7 +50,7 @@ const login = async () => {
   isLoading.value = true
   try {
     const response = await axios.post(
-      'https://incomplete-fan-renewal-impossible.trycloudflare.com/api/login',
+      'https://feeds-different-buried-safely.trycloudflare.com/api/login',
       {
         email: email.value,
         password: password.value,
