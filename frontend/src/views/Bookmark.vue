@@ -97,7 +97,7 @@ const bookmarks = ref([])
 const fetchArsip = async () => {
   try {
     const response = await axios.get(
-      'https://utilization-model-include-hungry.trycloudflare.com/api/arsip',
+      'https://used-envelope-tvs-improvement.trycloudflare.com/api/arsip',
     )
     arsipList.value = response.data
   } catch (error) {
@@ -117,7 +117,7 @@ const fetchBookmarks = async () => {
   try {
     const token = localStorage.getItem('auth_token')
     const response = await axios.get(
-      'https://utilization-model-include-hungry.trycloudflare.com/api/bookmarks',
+      'https://used-envelope-tvs-improvement.trycloudflare.com/api/bookmarks',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -144,7 +144,7 @@ const toggleBookmark = async (arsip) => {
   if (isBookmarked(arsip.id)) {
     try {
       await axios.delete(
-        `https://utilization-model-include-hungry.trycloudflare.com/api/bookmarks/${arsip.id}`,
+        `https://used-envelope-tvs-improvement.trycloudflare.com/api/bookmarks/${arsip.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -160,7 +160,7 @@ const toggleBookmark = async (arsip) => {
   } else {
     try {
       await axios.post(
-        'https://utilization-model-include-hungry.trycloudflare.com/api/bookmarks',
+        'https://used-envelope-tvs-improvement.trycloudflare.com/api/bookmarks',
         { arsip_id: arsip.id },
         {
           headers: {
@@ -191,13 +191,13 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `https://utilization-model-include-hungry.trycloudflare.com/storage/${arsip.file_path}`
+  return `https://used-envelope-tvs-improvement.trycloudflare.com/storage/${arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://utilization-model-include-hungry.trycloudflare.com/api/arsip/download/${arsip.id}`,
+      `https://used-envelope-tvs-improvement.trycloudflare.com/api/arsip/download/${arsip.id}`,
       {
         responseType: 'blob',
       },

@@ -47,7 +47,7 @@ const router = useRouter()
 const submitEmail = async () => {
   try {
     await axios.post(
-      'https://utilization-model-include-hungry.trycloudflare.com/api/forgot-password',
+      'https://used-envelope-tvs-improvement.trycloudflare.com/api/forgot-password',
       {
         email: email.value,
       },
