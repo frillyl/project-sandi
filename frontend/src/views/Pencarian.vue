@@ -150,7 +150,7 @@ const fetchArsip = async () => {
   loadingArsip.value = true
   try {
     const response = await axios.get(
-      'https://suspected-outputs-telephone-mating.trycloudflare.com/api/arsip',
+      'https://incomplete-fan-renewal-impossible.trycloudflare.com/api/arsip',
     )
     arsipList.value = response.data
 
@@ -260,7 +260,7 @@ const fetchBookmarks = async () => {
   try {
     const token = localStorage.getItem('auth_token')
     const response = await axios.get(
-      'https://suspected-outputs-telephone-mating.trycloudflare.com/api/bookmarks',
+      'https://incomplete-fan-renewal-impossible.trycloudflare.com/api/bookmarks',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -287,7 +287,7 @@ const toggleBookmark = async (arsip) => {
   if (isBookmarked(arsip.id)) {
     try {
       await axios.delete(
-        `https://suspected-outputs-telephone-mating.trycloudflare.com/api/bookmarks/${arsip.id}`,
+        `https://incomplete-fan-renewal-impossible.trycloudflare.com/api/bookmarks/${arsip.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -303,7 +303,7 @@ const toggleBookmark = async (arsip) => {
   } else {
     try {
       await axios.post(
-        'https://suspected-outputs-telephone-mating.trycloudflare.com/api/bookmarks',
+        'https://incomplete-fan-renewal-impossible.trycloudflare.com/api/bookmarks',
         { arsip_id: arsip.id },
         {
           headers: {
@@ -340,7 +340,7 @@ const getFileUrl = (arsip) => {
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://suspected-outputs-telephone-mating.trycloudflare.com/api/arsip/download/${arsip.id}`,
+      `https://incomplete-fan-renewal-impossible.trycloudflare.com/api/arsip/download/${arsip.id}`,
       {
         responseType: 'blob',
       },

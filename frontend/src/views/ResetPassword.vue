@@ -59,7 +59,7 @@ const submit = async () => {
   }
 
   try {
-    await axios.post('https://suspected-outputs-telephone-mating.trycloudflare.com/api/reset-password', {
+    await axios.post('https://incomplete-fan-renewal-impossible.trycloudflare.com/api/reset-password', {
       token: token.value,
       email: email.value,
       password: password.value,
