@@ -116,7 +116,7 @@ const fetchUserData = async () => {
   if (token) {
     try {
       const response = await axios.get(
-        'https://avi-initiative-basics-xml.trycloudflare.com/api/user',
+        'https://utilization-model-include-hungry.trycloudflare.com/api/user',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -148,7 +148,7 @@ const fetchBookmarks = async () => {
   const token = localStorage.getItem('auth_token')
   try {
     const response = await axios.get(
-      'https://avi-initiative-basics-xml.trycloudflare.com/api/bookmarks',
+      'https://utilization-model-include-hungry.trycloudflare.com/api/bookmarks',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -175,7 +175,7 @@ const openModal = async (arsip) => {
   loadingDetail.value = true
 
   try {
-    const resSummary = await axios.get(`https://ls-nw-ireland-sells.trycloudflare.com/summarize/${arsip.arsip.id}`)
+    const resSummary = await axios.get(`https://stands-brooklyn-resident-cooler.trycloudflare.com/summarize/${arsip.arsip.id}`)
     ringkasan.value = resSummary.data.summary
   } catch (error) {
     console.error('Gagal memuat ringkasan:', error)
@@ -183,7 +183,7 @@ const openModal = async (arsip) => {
   }
 
   try {
-    const resRekomendasi = await axios.get(`https://ls-nw-ireland-sells.trycloudflare.com/recommendation/${arsip.arsip.id}`)
+    const resRekomendasi = await axios.get(`https://stands-brooklyn-resident-cooler.trycloudflare.com/recommendation/${arsip.arsip.id}`)
     rekomendasi.value = resRekomendasi.data.recommendations
   } catch (error) {
     console.error('Gagal memuat rekomendasi:', error)
@@ -208,13 +208,13 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `https://avi-initiative-basics-xml.trycloudflare.com/storage/${arsip.arsip.file_path}`
+  return `https://utilization-model-include-hungry.trycloudflare.com/storage/${arsip.arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://avi-initiative-basics-xml.trycloudflare.com/api/arsip/download/${arsip.arsip.id}`,
+      `https://utilization-model-include-hungry.trycloudflare.com/api/arsip/download/${arsip.arsip.id}`,
       {
         responseType: 'blob',
       },

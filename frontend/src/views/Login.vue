@@ -50,7 +50,7 @@ const login = async () => {
   isLoading.value = true
   try {
     const response = await axios.post(
-      'https://avi-initiative-basics-xml.trycloudflare.com/api/login',
+      'https://utilization-model-include-hungry.trycloudflare.com/api/login',
       {
         email: email.value,
         password: password.value,

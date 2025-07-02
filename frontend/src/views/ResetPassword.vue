@@ -59,7 +59,7 @@ const submit = async () => {
   }
 
   try {
-    await axios.post('https://avi-initiative-basics-xml.trycloudflare.com/api/reset-password', {
+    await axios.post('https://utilization-model-include-hungry.trycloudflare.com/api/reset-password', {
       token: token.value,
       email: email.value,
       password: password.value,
