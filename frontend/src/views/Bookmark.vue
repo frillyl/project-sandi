@@ -97,7 +97,7 @@ const bookmarks = ref([])
 const fetchArsip = async () => {
   try {
     const response = await axios.get(
-      'https://used-envelope-tvs-improvement.trycloudflare.com/api/arsip',
+      'https://accent-fax-the-entered.trycloudflare.com/api/arsip',
     )
     arsipList.value = response.data
   } catch (error) {
@@ -117,7 +117,7 @@ const fetchBookmarks = async () => {
   try {
     const token = localStorage.getItem('auth_token')
     const response = await axios.get(
-      'https://used-envelope-tvs-improvement.trycloudflare.com/api/bookmarks',
+      'https://accent-fax-the-entered.trycloudflare.com/api/bookmarks',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -144,7 +144,7 @@ const toggleBookmark = async (arsip) => {
   if (isBookmarked(arsip.id)) {
     try {
       await axios.delete(
-        `https://used-envelope-tvs-improvement.trycloudflare.com/api/bookmarks/${arsip.id}`,
+        `https://accent-fax-the-entered.trycloudflare.com/api/bookmarks/${arsip.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -160,7 +160,7 @@ const toggleBookmark = async (arsip) => {
   } else {
     try {
       await axios.post(
-        'https://used-envelope-tvs-improvement.trycloudflare.com/api/bookmarks',
+        'https://accent-fax-the-entered.trycloudflare.com/api/bookmarks',
         { arsip_id: arsip.id },
         {
           headers: {
@@ -191,13 +191,13 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `https://used-envelope-tvs-improvement.trycloudflare.com/storage/${arsip.file_path}`
+  return `https://accent-fax-the-entered.trycloudflare.com/storage/${arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://used-envelope-tvs-improvement.trycloudflare.com/api/arsip/download/${arsip.id}`,
+      `https://accent-fax-the-entered.trycloudflare.com/api/arsip/download/${arsip.id}`,
       {
         responseType: 'blob',
       },
@@ -223,7 +223,7 @@ const openModal = async (arsip) => {
   loadingDetail.value = true
 
   try {
-    const resSummary = await axios.get(`https://stands-brooklyn-resident-cooler.trycloudflare.com/summarize/${arsip.id}`)
+    const resSummary = await axios.get(`https://trademarks-sunglasses-tries-dimension.trycloudflare.com/summarize/${arsip.id}`)
     ringkasan.value = resSummary.data.summary
   } catch (error) {
     console.error('Gagal memuat ringkasan:', error)
@@ -233,7 +233,7 @@ const openModal = async (arsip) => {
   }
 
   try {
-    const resRekomendasi = await axios.get(`https://stands-brooklyn-resident-cooler.trycloudflare.com/recommendation/${arsip.id}`)
+    const resRekomendasi = await axios.get(`https://trademarks-sunglasses-tries-dimension.trycloudflare.com/recommendation/${arsip.id}`)
     rekomendasi.value = resRekomendasi.data.recommendations
   } catch (error) {
     console.error('Gagal memuat rekomendasi:', error)
