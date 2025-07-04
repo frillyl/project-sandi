@@ -47,7 +47,7 @@ const router = useRouter()
 const submitEmail = async () => {
   try {
     await axios.post(
-      'https://accent-fax-the-entered.trycloudflare.com/api/forgot-password',
+      'https://cyber-polo-urge-theories.trycloudflare.com/api/forgot-password',
       {
         email: email.value,
       },

@@ -50,7 +50,7 @@ const login = async () => {
   isLoading.value = true
   try {
     const response = await axios.post(
-      'https://accent-fax-the-entered.trycloudflare.com/api/login',
+      'https://cyber-polo-urge-theories.trycloudflare.com/api/login',
       {
         email: email.value,
         password: password.value,

@@ -31,7 +31,7 @@ class GenerateSummary implements ShouldQueue
     public function handle(): void
     {
         try {
-            $response = Http::timeout(300)->get("https://trademarks-sunglasses-tries-dimension.trycloudflare.com/summarize_abstractive/{$this->arsipId}");
+            $response = Http::timeout(300)->get("https://summit-boating-mins-salon.trycloudflare.com/summarize_abstractive/{$this->arsipId}");
 
             if ($response->successful()) {
                 $summary = $response->json('summary_abstractive');
