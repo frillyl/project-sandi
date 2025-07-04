@@ -116,7 +116,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import Navbar from '@/components/Navbar.vue'
 
-const API_URL = 'https://suburban-designated-authorized-conditional.trycloudflare.com/api/klasifikasi'
+const API_URL = 'https://pupils-immigrants-gmt-associations.trycloudflare.com/api/klasifikasi'
 const list = ref([])
 const showModal = ref(false)
 const search = ref('')
