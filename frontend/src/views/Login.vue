@@ -50,7 +50,7 @@ const login = async () => {
   isLoading.value = true
   try {
     const response = await axios.post(
-      'https://mississippi-friends-place-homepage.trycloudflare.com/api/login',
+      'https://suburban-designated-authorized-conditional.trycloudflare.com/api/login',
       {
         email: email.value,
         password: password.value,

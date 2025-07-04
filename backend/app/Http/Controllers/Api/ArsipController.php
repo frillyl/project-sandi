@@ -37,7 +37,7 @@ class ArsipController extends Controller
 
         // $response = Http::attach(
         //     'file', file_get_contents($file), $file->getClientOriginalName()
-        // )->post('https://parker-noise-performed-lips.trycloudflare.com/ocr'); // URL FastAPI
+        // )->post('https://cape-republicans-alter-latest.trycloudflare.com/ocr'); // URL FastAPI
 
         // if ($response->failed()) {
         //     return response()->json(['error' => 'OCR processing failed', 'details' => $response->body()], 500);
@@ -92,7 +92,7 @@ class ArsipController extends Controller
         // Lakukan OCR pada file baru
         $response = Http::attach(
             'file', file_get_contents($file), $file->getClientOriginalName()
-        )->post('https://parker-noise-performed-lips.trycloudflare.com/ocr'); // URL FastAPI
+        )->post('https://cape-republicans-alter-latest.trycloudflare.com/ocr'); // URL FastAPI
 
         if ($response->failed()) {
             return response()->json(['error' => 'OCR processing failed', 'details' => $response->body()], 500);

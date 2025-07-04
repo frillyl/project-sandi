@@ -55,7 +55,7 @@ const changePassword = async () => {
   try {
     const token = localStorage.getItem('auth_token')
     await axios.post(
-      'https://mississippi-friends-place-homepage.trycloudflare.com/api/change-password',
+      'https://suburban-designated-authorized-conditional.trycloudflare.com/api/change-password',
       {
         password: password.value,
         password_confirmation: confirmPassword.value,
