@@ -129,7 +129,7 @@ const fetchUserData = async () => {
   const token = localStorage.getItem('auth_token')
   if (token) {
     try {
-      const response = await axios.get('https://sherman-newport-societies-treasures.trycloudflare.com/api/user', {
+      const response = await axios.get('https://smaller-owned-sides-tourist.trycloudflare.com/api/user', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

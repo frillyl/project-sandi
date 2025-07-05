@@ -50,7 +50,7 @@ const login = async () => {
   isLoading.value = true
   try {
     const response = await axios.post(
-      'https://sherman-newport-societies-treasures.trycloudflare.com/api/login',
+      'https://smaller-owned-sides-tourist.trycloudflare.com/api/login',
       {
         email: email.value,
         password: password.value,

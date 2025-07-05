@@ -59,7 +59,7 @@ const submit = async () => {
   }
 
   try {
-    await axios.post('https://sherman-newport-societies-treasures.trycloudflare.com/api/reset-password', {
+    await axios.post('https://smaller-owned-sides-tourist.trycloudflare.com/api/reset-password', {
       token: token.value,
       email: email.value,
       password: password.value,
