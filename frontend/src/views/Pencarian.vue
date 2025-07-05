@@ -150,7 +150,7 @@ const fetchArsip = async () => {
   loadingArsip.value = true
   try {
     const response = await axios.get(
-      'https://hudson-assuming-kenneth-e.trycloudflare.com/api/arsip',
+      'https://sherman-newport-societies-treasures.trycloudflare.com/api/arsip',
     )
     arsipList.value = response.data
 
@@ -260,7 +260,7 @@ const fetchBookmarks = async () => {
   try {
     const token = localStorage.getItem('auth_token')
     const response = await axios.get(
-      'https://hudson-assuming-kenneth-e.trycloudflare.com/api/bookmarks',
+      'https://sherman-newport-societies-treasures.trycloudflare.com/api/bookmarks',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -287,7 +287,7 @@ const toggleBookmark = async (arsip) => {
   if (isBookmarked(arsip.id)) {
     try {
       await axios.delete(
-        `https://hudson-assuming-kenneth-e.trycloudflare.com/api/bookmarks/${arsip.id}`,
+        `https://sherman-newport-societies-treasures.trycloudflare.com/api/bookmarks/${arsip.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -303,7 +303,7 @@ const toggleBookmark = async (arsip) => {
   } else {
     try {
       await axios.post(
-        'https://hudson-assuming-kenneth-e.trycloudflare.com/api/bookmarks',
+        'https://sherman-newport-societies-treasures.trycloudflare.com/api/bookmarks',
         { arsip_id: arsip.id },
         {
           headers: {
@@ -334,13 +334,13 @@ const formatTanggal = (tanggal) => {
 }
 
 const getFileUrl = (arsip) => {
-  return `https://hudson-assuming-kenneth-e.trycloudflare.com/storage/${arsip.file_path}`
+  return `https://sherman-newport-societies-treasures.trycloudflare.com/storage/${arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://hudson-assuming-kenneth-e.trycloudflare.com/api/arsip/download/${arsip.id}`,
+      `https://sherman-newport-societies-treasures.trycloudflare.com/api/arsip/download/${arsip.id}`,
       {
         responseType: 'blob',
       },
@@ -375,7 +375,7 @@ const openModal = async (arsip) => {
 
   try {
     const resSummary = await axios.get(
-      `https://jurisdiction-cables-pets-namespace.trycloudflare.com/summarize_abstractive/${arsip.id}`,
+      `https://luggage-appearance-commander-coral.trycloudflare.com/summarize_abstractive/${arsip.id}`,
     )
     ringkasan.value = resSummary.data.summary_abstractive
   } catch (error) {
@@ -387,7 +387,7 @@ const openModal = async (arsip) => {
 
   try {
     const resRekomendasi = await axios.get(
-      `https://jurisdiction-cables-pets-namespace.trycloudflare.com/recommendation/${arsip.id}`,
+      `https://luggage-appearance-commander-coral.trycloudflare.com/recommendation/${arsip.id}`,
     )
     rekomendasi.value = resRekomendasi.data.recommendations
   } catch (error) {
