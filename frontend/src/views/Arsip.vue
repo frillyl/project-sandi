@@ -186,7 +186,7 @@ const openEditModal = (arsip) => {
 const fetchArsip = async () => {
   try {
     const response = await axios.get(
-      'https://pupils-immigrants-gmt-associations.trycloudflare.com/api/arsip',
+      'https://hudson-assuming-kenneth-e.trycloudflare.com/api/arsip',
     )
     arsipList.value = response.data
   } catch (error) {
@@ -197,7 +197,7 @@ const fetchArsip = async () => {
 const fetchKlasifikasi = async () => {
   try {
     const response = await axios.get(
-      'https://pupils-immigrants-gmt-associations.trycloudflare.com/api/klasifikasi',
+      'https://hudson-assuming-kenneth-e.trycloudflare.com/api/klasifikasi',
     )
     klasifikasiList.value = response.data
   } catch (error) {
@@ -236,7 +236,7 @@ const submitForm = async () => {
     if (isEditMode.value) {
       formData.append('_method', 'PUT')
       await axios.post(
-        `https://pupils-immigrants-gmt-associations.trycloudflare.com/api/arsip/${selectedId.value}`,
+        `https://hudson-assuming-kenneth-e.trycloudflare.com/api/arsip/${selectedId.value}`,
         formData,
         {
           headers: {
@@ -246,7 +246,7 @@ const submitForm = async () => {
       )
     } else {
       await axios.post(
-        'https://pupils-immigrants-gmt-associations.trycloudflare.com/api/arsip',
+        'https://hudson-assuming-kenneth-e.trycloudflare.com/api/arsip',
         formData,
         {
           'Content-Type': 'multipart/form-data',
@@ -292,7 +292,7 @@ const deleteArsip = async (id) => {
 
   if (result.isConfirmed) {
     try {
-      await axios.delete(`https://pupils-immigrants-gmt-associations.trycloudflare.com/api/arsip/${id}`)
+      await axios.delete(`https://hudson-assuming-kenneth-e.trycloudflare.com/api/arsip/${id}`)
       await fetchArsip()
       Swal.fire({
         icon: 'success',
@@ -322,13 +322,13 @@ const resetForm = () => {
 }
 
 const getFileUrl = (arsip) => {
-  return `https://pupils-immigrants-gmt-associations.trycloudflare.com/storage/${arsip.file_path}`
+  return `https://hudson-assuming-kenneth-e.trycloudflare.com/storage/${arsip.file_path}`
 }
 
 const downloadFile = async (arsip) => {
   try {
     const response = await axios.get(
-      `https://pupils-immigrants-gmt-associations.trycloudflare.com/api/arsip/download/${arsip.id}`,
+      `https://hudson-assuming-kenneth-e.trycloudflare.com/api/arsip/download/${arsip.id}`,
       {
         responseType: 'blob',
       },

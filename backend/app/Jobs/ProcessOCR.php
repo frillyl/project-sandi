@@ -37,7 +37,7 @@ class ProcessOCR implements ShouldQueue
 
         $response = Http::attach(
             'file', $fileContent, basename($arsip->file_path)
-        )->post('https://guest-enters-rolling-females.trycloudflare.com/ocr');
+        )->post('https://jurisdiction-cables-pets-namespace.trycloudflare.com/ocr');
 
         if ($response->successful()) {
             $hasil = $response->json('hasil_ocr') ?? 'Tidak ada teks OCR ditemukan.';
