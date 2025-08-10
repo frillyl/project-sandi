@@ -59,7 +59,7 @@ const submit = async () => {
   }
 
   try {
-    await axios.post('https://smaller-owned-sides-tourist.trycloudflare.com/api/reset-password', {
+    await axios.post('http://localhost:8000/api/reset-password', {
       token: token.value,
       email: email.value,
       password: password.value,

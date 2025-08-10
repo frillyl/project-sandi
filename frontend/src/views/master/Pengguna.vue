@@ -21,14 +21,30 @@
         <table>
           <thead>
             <tr>
-              <th>Nama</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th @click="toggleSort('name')" style="cursor: pointer; text-align: left;">
+                <div class="th-sort">
+                  <span>Nama</span>
+                  <i :class="sortBy === 'name' ? (sortOrder === 'asc' ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down') : 'fa-solid fa-sort'"></i>
+                </div>
+              </th>
+              <th @click="toggleSort('email')" style="cursor: pointer; text-align: left;">
+                <div class="th-sort">
+                  <span>Email</span>
+                  <i :class="sortBy === 'email' ? (sortOrder === 'asc' ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down') : 'fa-solid fa-sort'"></i>
+                </div>
+              </th>
+              <th>
+                <select v-model="roleFilter" class="role-filter-inline">
+                  <option value="">Role</option>
+                  <option value="arsiparis">Arsiparis</option>
+                  <option value="user">User</option>
+                </select>
+              </th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in filteredUsers" :key="user.id">
+            <tr v-for="user in paginatedUsers" :key="user.id">
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.role.charAt(0).toUpperCase() + user.role.slice(1) }}</td>
@@ -46,6 +62,10 @@
             </tr>
           </tbody>
         </table>
+        <div class="pagination">
+          <button :disabled="currentPage === 1" @click="currentPage--" class="page-btn">&laquo; Sebelumnya</button><span>Halaman {{ currentPage }} dari {{ totalPages }}</span>
+          <button :disabled="currentPage === totalPages" @click="currentPage++" class="page-btn">Selanjutnya &raquo;</button>
+        </div>
       </div>
     </div>
 
@@ -112,6 +132,12 @@
             </div>
           </form>
         </div>
+        <div v-if="isGlobalLoading" class="overlay-loading">
+        <div class="loader-content">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <p>Memproses...</p>
+        </div>
+      </div>
       </div>
     </transition>
   </div>
@@ -123,18 +149,45 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import Navbar from '@/components/Navbar.vue'
 
-const API_URL = 'https://smaller-owned-sides-tourist.trycloudflare.com/api/users'
+const API_URL = 'http://localhost:8000/api/users'
 const users = ref([])
 const showModal = ref(false)
 const search = ref('')
 const emailInUse = ref(false)
+const currentPage = ref(1)
+const perPage = 5
+const isGlobalLoading = ref(false)
+const sortBy = ref('')
+const sortOrder = ref('asc')
+const roleFilter = ref('')
 
-const filteredUsers = computed(() => {
-  return users.value.filter(
+// const filteredUsers = computed(() => {
+//   return users.value.filter(
+//     (user) =>
+//       user.name.toLowerCase().includes(search.value.toLowerCase()) ||
+//       user.email.toLowerCase().includes(search.value.toLowerCase()),
+//   )
+// })
+
+const sortedAndFilteredUsers = computed(() => {
+  let filtered = users.value.filter(
     (user) =>
-      user.name.toLowerCase().includes(search.value.toLowerCase()) ||
-      user.email.toLowerCase().includes(search.value.toLowerCase()),
+      (user.name.toLowerCase().includes(search.value.toLowerCase()) || user.email.toLowerCase().includes(search.value.toLowerCase())) && (roleFilter.value === '' || user.role === roleFilter.value)
   )
+
+  if (sortBy.value) {
+    filtered.sort((a,b) => {
+      const valA = a[sortBy.value].toLowerCase()
+      const valB = b[sortBy.value].toLowerCase()
+      if (sortOrder.value === 'asc') {
+        return valA.localeCompare(valB)
+      } else {
+        return valB.localeCompare(valA)
+      }
+    })
+  }
+
+  return filtered
 })
 
 const form = ref({
@@ -159,6 +212,7 @@ const submitForm = async () => {
     return
   }
 
+  isGlobalLoading.value = true
   try {
     if (form.value.id) {
       await axios.put(`${API_URL}/${form.value.id}`, {
@@ -198,6 +252,8 @@ const submitForm = async () => {
     } else {
       Swal.fire('Gagal', 'Validasi Server Gagal atau Data Tidak Lengkap.', 'error')
     }
+  } finally {
+    isGlobalLoading.value = false
   }
 }
 
@@ -222,6 +278,7 @@ const confirmDelete = (id) => {
     cancelButtonText: 'Batal',
   }).then(async (result) => {
     if (result.isConfirmed) {
+      isGlobalLoading.value = true
       try {
         await axios.delete(`${API_URL}/${id}`)
         Swal.fire({
@@ -235,15 +292,27 @@ const confirmDelete = (id) => {
         getUsers()
       } catch (error) {
         Swal.fire('Gagal', 'Gagal Menghapus Pengguna.', 'error')
+      } finally {
+        isGlobalLoading.value = false
       }
     }
   })
 }
 
+const toggleSort = (field) => {
+  if (sortBy.value === field) {
+    sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    sortBy.value = field
+    sortOrder.value = 'asc'
+  }
+}
+
 const resetPassword = async (userId) => {
+  isGlobalLoading.value = true
   try {
     await axios.post(
-      `https://smaller-owned-sides-tourist.trycloudflare.com/api/users/${userId}/reset-password`,
+      `http://localhost:8000/api/users/${userId}/reset-password`,
     )
     Swal.fire({
       icon: 'success',
@@ -255,6 +324,8 @@ const resetPassword = async (userId) => {
     })
   } catch (error) {
     Swal.fire('Gagal', 'Gagal me-reset password.', 'error')
+  } finally {
+    isGlobalLoading.value = false
   }
 }
 
@@ -293,6 +364,15 @@ const closeModal = () => {
   emailInUse.value = false
 }
 
+const totalPages = computed(() => {
+  return Math.ceil(sortedAndFilteredUsers.value.length / perPage)
+})
+
+const paginatedUsers = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  return sortedAndFilteredUsers.value.slice(start, start + perPage)
+})
+
 // Validasi email unik secara real-time (untuk tambah user)
 watch(
   () => form.value.email,
@@ -307,6 +387,10 @@ watch(
     }
   },
 )
+
+watch(search, () => {
+  currentPage.value = 1
+})
 
 // Load data saat komponen dimount
 onMounted(() => {
@@ -406,6 +490,29 @@ onMounted(() => {
   text-align: center;
 }
 
+.th-sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.th-sort i {
+  font-size: 0.85rem;
+  color: var(--on-primary);
+}
+
+.role-filter-inline {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  border: none;
+  background: #FFFFFF;
+  color: #333333;
+  width: 100%;
+}
+
 .actions-cell {
   display: flex;
   gap: 10px;
@@ -434,6 +541,29 @@ onMounted(() => {
 
 .btn.reset:hover {
   background-color: #757575;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.page-btn {
+  padding: 6px 12px;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.page-btn:disabled {
+  background-color: #CCCCCC;
+  cursor: not-allowed;
 }
 
 .modal {
@@ -569,6 +699,35 @@ onMounted(() => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.overlay-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+
+.loader-content {
+  text-align: center;
+  color: var(--primary);
+}
+
+.loader-content i {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.loader-content p {
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 h2 {

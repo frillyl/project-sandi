@@ -3,7 +3,7 @@
     <div class="navbar-container">
       <div class="navbar-left">
         <div class="navbar-logo">
-          <h1>SANDI</h1>
+          <h1>MNEMO.AI</h1>
         </div>
         <button class="hamburger" @click="toggleMobileMenu">
           <i class="fa-solid fa-bars"></i>
@@ -129,7 +129,7 @@ const fetchUserData = async () => {
   const token = localStorage.getItem('auth_token')
   if (token) {
     try {
-      const response = await axios.get('https://smaller-owned-sides-tourist.trycloudflare.com/api/user', {
+      const response = await axios.get('http://localhost:8000/api/user', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

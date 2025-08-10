@@ -3,7 +3,7 @@
     <!-- Navbar Section -->
     <nav class="navbar">
       <div class="navbar-container">
-        <div class="logo">SANDI</div>
+        <div class="logo">MNEMO.AI</div>
         <button class="menu-toggle" @click="toggleMenu">
           <span :class="{ open: menuOpen }"></span>
           <span :class="{ open: menuOpen }"></span>
@@ -49,8 +49,8 @@
         </svg>
       </div>
       <div class="hero-content">
-        <h1>SANDI</h1>
-        <p>Solusi Cerdas Untuk Arsip Digital</p>
+        <h1>MNEMO.AI</h1>
+        <p>Sistem Arsip Digital Berbasis Teknologi LLM</p>
         <a href="/demo/login" class="hero-button"><i class="fa-solid fa-rocket"></i>Demo</a>
       </div>
     </section>
@@ -61,11 +61,11 @@
         <div class="about-text">
           <h2>Tentang</h2>
           <p>
-            SANDI merupakan aplikasi arsip digital berbasis web yang dilengkapi dengan fitur
-            kecerdasan buatan (AI) untuk membantu pengguna dalam melakukan peringkasan isi dokumen
-            serta rekomendasi dokumen serupa. Aplikasi ini dikembangkan dengan pendekatan arsitektur
-            microservices dan memanfaatkan layanan cloud untuk efisiensi pengelolaan infrastruktur
-            dan skalabilitas.
+            MNEMO.AI merupakan sebuah aplikasi arsip digital berbasis web yang dilengkapi dengan fitur-fitur yang memanfaatkan kecerdasan buatan
+            untuk dapat membantu pengguna dalam mengelola dokumen arsip secara elektronik. Dengan memanfaatkan teknologi
+            <i>Optical Character Recognition</i> (OCR) yang dikombinasikan dengan peringkasan abstraktif menggunakan LLM Mistral dan rekomendasi
+            dokumen menggunakan TF-IDF Cosine Similarity, aplikasi ini dapat membantu pengguna dalam menemukan informasi dengan cepat dan tepat
+            meskipun terdapat arsip dalam jumlah yang banyak.
           </p>
         </div>
         <div class="about-image">
@@ -106,23 +106,19 @@
           <ul>
             <li data-aos="fade-up" data-aos-delay="100">
               <i class="fa-solid fa-check-circle"></i> Membangun aplikasi arsip digital yang dapat
-              mengunggah, menyimpan, dan mengelola dokumen digital.
+              mengunggah, menyimpan, dan mengelola dokumen secara digital.
             </li>
             <li data-aos="fade-up" data-aos-delay="200">
               <i class="fa-solid fa-check-circle"></i> Mengimplementasikan fitur peringkasan
-              otomatis menggunakan algoritma TextRank.
+              dokumen otomatis menggunakan LLM Mistral.
             </li>
             <li data-aos="fade-up" data-aos-delay="300">
               <i class="fa-solid fa-check-circle"></i> Menyediakan rekomendasi dokumen serupa
-              berbasis perhitungan kemiripan teks menggunakan TF-IDF dan Cosine Similarity.
+              berdasarkan kemiripan isi dokumen menggunakan TF-IDF dan Cosine Similarity.
             </li>
             <li data-aos="fade-up" data-aos-delay="400">
-              <i class="fa-solid fa-check-circle"></i> Menerapkan arsitektur microservice untuk
+              <i class="fa-solid fa-check-circle"></i> Menerapkan arsitektur multi-tier untuk
               pemisahan tanggung jawab layanan dan kemudahan pengembangan atau pemeliharaan.
-            </li>
-            <li data-aos="fade-up" data-aos-delay="500">
-              <i class="fa-solid fa-check-circle"></i> Menerapkan deployment ke cloud menggunakan
-              Google Cloud Platform agar sistem dapat diakses secara online.
             </li>
           </ul>
         </div>
@@ -135,11 +131,11 @@
             </li>
             <li data-aos="fade-up" data-aos-delay="200">
               <i class="fa-solid fa-check-circle"></i> Peringkasan dokumen secara otomatis dengan
-              metode ekstraktif menggunakan algoritma TextRank.
+              metode abstraktif menggunakan LLM Mistral.
             </li>
             <li data-aos="fade-up" data-aos-delay="300">
               <i class="fa-solid fa-check-circle"></i> Rekomendasi dokumen serupa berdasarkan
-              analisis kemiripan isi menggunakan pendekatan TF-IDF dan Cosine Similarity.
+              analisis kemiripan isi dokumen menggunakan pendekatan TF-IDF dan Cosine Similarity.
             </li>
           </ul>
         </div>
@@ -190,26 +186,26 @@
             </p>
           </div>
           <div class="block" data-aos="zoom-in-up" data-aos-delay="300" data-aos-duration="600">
-            <h3><i class="fas fa-cogs"></i> Microservices</h3>
+            <h3><i class="fas fa-cogs"></i> Multi-Tier Architecture</h3>
             <p>
-              Microservices dibangun dengan FastAPI, mencakup layanan OCR (Tesseract), summarization
-              (TextRank/Sumy), dan recommendation (TF-IDF + Cosine Similarity dengan scikit-learn).
+              Memisahkan antara lapisan <i>frontend</i> yang dibangun dengan menggunakan Vue.js,
+              <i>backend</i> yang dibangun dengan menggunakan Laravel, dan layanan AI yang dibangun
+              dengan menggunakan FastAPI.
             </p>
           </div>
           <div class="block" data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="600">
             <h3><i class="fas fa-database"></i> Database</h3>
             <p>
-              Database menggunakan MySQL yang dikelola melalui Cloud SQL untuk menyimpan data
-              pengguna, metadata dokumen, hasil ringkasan, dan rekomendasi.
+              Database menggunakan MySQL yang digunakan untuk menyimpan data
+              pengguna, metadata dokumen, hasil ringkasan, dan hasil rekomendasi.
             </p>
           </div>
           <div class="block" data-aos="zoom-in-up" data-aos-delay="500" data-aos-duration="600">
-            <h3><i class="fas fa-cloud-upload-alt"></i> Deployment</h3>
+            <h3><i class="fas fa-brain"></i> Large Language Model</h3>
             <p>
-              Deployment dilakukan di Google Cloud Platform menggunakan Cloud Run untuk menjalankan
-              layanan ter-container, Cloud SQL untuk database, dan Cloud Storage untuk penyimpanan
-              dokumen.
-            </p>
+              Teknologi LLM yang digunakan adalah Mistral, model open-source yang efisien dan ringan.
+              Model ini dilatih untuk memahami dan menghasilkan teks secara alami, serta cocok untuk digunakan
+              untuk merangkum isi dokumen secara cepat dan akurat.</p>
           </div>
         </div>
       </div>
@@ -218,7 +214,7 @@
     <!-- Footer Section -->
     <footer class="footer" data-aos="fade-up" data-aos-duration="800">
       <div class="footer-content">
-        <p>&copy; 2025 <strong>SANDI</strong> - Solusi Cerdas Untuk Arsip Digital</p>
+        <p>&copy; 2025 <strong>MNEMO.AI</strong> - Sistem Arsip Digital Berbasis Teknologi LLM</p>
         <p>Hak Cipta Dilindungi Undang-Undang.</p>
       </div>
     </footer>

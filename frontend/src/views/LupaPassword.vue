@@ -47,7 +47,7 @@ const router = useRouter()
 const submitEmail = async () => {
   try {
     await axios.post(
-      'https://smaller-owned-sides-tourist.trycloudflare.com/api/forgot-password',
+      'http://localhost:8000/api/forgot-password',
       {
         email: email.value,
       },

@@ -16,8 +16,8 @@
             <i class="fa-solid fa-user"></i>
           </div>
           <div class="input-group animated delay-3">
-            <input v-model="password" type="password" placeholder="Password" />
-            <i class="fa-solid fa-key"></i>
+            <input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="Password" />
+            <i class="fa-solid" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'" @click="showPassword = !showPassword" style="cursor: pointer"></i>
           </div>
           <router-link to="/demo/lupa-password" class="forgot-link animated delay-4"
             >Lupa Password?</router-link
@@ -43,6 +43,7 @@ import Swal from 'sweetalert2'
 
 const email = ref('')
 const password = ref('')
+const showPassword = ref(false)
 const router = useRouter()
 const isLoading = ref(false)
 
@@ -50,7 +51,7 @@ const login = async () => {
   isLoading.value = true
   try {
     const response = await axios.post(
-      'https://smaller-owned-sides-tourist.trycloudflare.com/api/login',
+      'http://localhost:8000/api/login',
       {
         email: email.value,
         password: password.value,
@@ -220,6 +221,12 @@ const login = async () => {
   top: 50%;
   transform: translateY(-50%);
   color: var(--primary);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.input-group i:hover {
+  color: var(--info);
 }
 
 .forgot-link {

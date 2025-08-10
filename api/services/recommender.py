@@ -21,7 +21,7 @@ def remove_template_sections(text: str) -> str:
         text = re.sub(pattern, '', text)
     return text
 
-def get_recommendations(db: Session, doc_id: int, top_n: int = 5, min_score: float = 0.3):
+def get_recommendations(db: Session, doc_id: int, top_n: int = 5, min_score: float = 0.5):
     documents = db.query(HasilOCR).all()
 
     # corpus = [doc.hasil_ocr for doc in documents]
